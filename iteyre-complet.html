@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iteyre · Identité visuelle</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --terra:      #D4521E;
+  --terra-mid:  #A03A15;
+  --terra-soft: #7A2C10;
+  --bg:         #F0EBE3;
+  --ink:        #1A1A1A;
+  --border:     #D8D0C8;
+  --card:       #FFFFFF;
+  --muted:      #888;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  display: flex; align-items: center; gap: 0;
+}
+.nav-logo {
+  display: inline-flex; align-items: flex-start;
+  line-height: 1; padding: 18px 24px 18px 0;
+  border-right: 1px solid var(--border);
+  margin-right: 24px;
+}
+.nav-logo span {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 600; font-size: 22px; color: var(--terra); line-height: 1;
+}
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+  font-size: 8px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase;
+  padding: 22px 20px; border: none; background: none; cursor: pointer;
+  color: var(--muted); border-bottom: 2px solid transparent;
+  transition: all 0.15s; white-space: nowrap;
+}
+.nav-tab.active { color: var(--terra); border-bottom-color: var(--terra); }
+.nav-tab:hover:not(.active) { color: var(--ink); }
+
+/* ── LAYOUT ── */
+.page { display: none; max-width: 960px; margin: 0 auto; padding: 48px 32px 80px; }
+.page.active { display: block; }
+.section-title {
+  font-size: 7px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); padding-bottom: 10px;
+  border-bottom: 1px solid var(--border); margin-bottom: 20px;
+}
+
+/* ── CARDS ── */
+.card { background: var(--card); border: 1px solid var(--border); margin-bottom: 3px; }
+.card-inner { padding: 28px 32px; }
+
+/* ── VARIANTE PREVIEW ── */
+.variant-row { display: flex; }
+.variant-preview {
+  flex-shrink: 0; width: 260px; padding: 24px 24px 20px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.variant-criteria {
+  flex: 1; padding: 20px 28px;
+  display: flex; flex-direction: column; gap: 14px; justify-content: center;
+  border-left: 1px solid var(--border);
+}
+.crit-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.crit-label { font-size: 7.5px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink); }
+.crit-desc  { font-size: 10px; color: var(--muted); margin-top: 1px; }
+
+/* ── ÉTOILES ── */
+.stars { display: flex; gap: 3px; }
+.star {
+  background: none; border: none; cursor: pointer;
+  font-size: 20px; padding: 2px; line-height: 1;
+  color: #DDD; transition: color 0.1s;
+}
+.star.active { color: var(--terra); }
+.star:hover  { color: var(--terra); }
+
+/* ── FAVICON PREVIEW (SVG — toujours net) ── */
+.fav-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; margin-bottom: 3px; }
+.fav-card {
+  padding: 20px 16px 16px;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 14px;
+}
+.fav-sizes-row { display: flex; align-items: flex-end; gap: 12px; }
+.fav-box { display: flex; align-items: center; justify-content: center; }
+.fav-sub { font-size: 6.5px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
+.fav-criteria { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+.fav-crit-row { display: flex; align-items: center; justify-content: space-between; }
+.fav-crit-lbl { font-size: 7px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+
+/* ── FORMULAIRE ── */
+.form-section { background: var(--bg); border: 1px solid var(--border); padding: 28px 32px; margin-top: 3px; display: flex; flex-direction: column; gap: 14px; }
+input, textarea {
+  font-family: 'Montserrat', sans-serif; font-size: 11px;
+  background: var(--card); border: 1px solid var(--border);
+  padding: 11px 14px; color: var(--ink); outline: none;
+  width: 100%; transition: border-color 0.15s;
+}
+input:focus, textarea:focus { border-color: var(--terra); }
+textarea { resize: none; }
+
+/* ── BOUTONS ── */
+.btn-row { display: flex; gap: 3px; flex-wrap: wrap; margin-top: 4px; }
+.btn {
+  font-family: 'Montserrat', sans-serif; font-size: 8px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 12px 20px; border: 1px solid var(--border);
+  background: transparent; color: var(--ink); cursor: pointer;
+  transition: all 0.15s; flex: 1; min-width: 130px;
+}
+.btn:hover     { border-color: var(--terra); color: var(--terra); }
+.btn.primary   { border-color: var(--terra); color: var(--terra); }
+.btn.primary:hover { background: var(--terra); color: #fff; }
+.btn.submit    { background: var(--terra); border-color: var(--terra); color: #fff; }
+.btn.submit:hover { background: var(--terra-mid); }
+.btn.submit:disabled { background: #ccc; border-color: #ccc; cursor: default; }
+
+/* ── RÉSULTATS ── */
+.results-table { width: 100%; border-collapse: collapse; }
+.results-table th, .results-table td {
+  padding: 12px 14px; text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-size: 10px;
+}
+.results-table th { font-size: 7px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+.score-bar { height: 2px; background: var(--border); margin-top: 4px; }
+.score-fill { height: 2px; background: var(--terra); transition: width 0.5s; }
+.score-num { font-size: 13px; font-weight: 600; color: var(--ink); }
+.score-best { color: var(--terra); }
+.badge-best { font-size: 6px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--terra); margin-top: 1px; }
+
+/* ── EXPORT ── */
+.export-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.export-card { background: var(--card); border: 1px solid var(--border); padding: 24px 28px; }
+.export-label { font-size: 7px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+
+/* ── BANNIÈRE PREVIEW ── */
+.banner-wrap { width: 100%; margin-bottom: 3px; }
+.banner-inner {
+  width: 100%; aspect-ratio: 1584/396;
+  position: relative; overflow: hidden; display: flex; align-items: center;
+}
+.b-grid {
+  position: absolute; inset: 0; opacity: 0.03;
+  background-image:
+    repeating-linear-gradient(0deg,  var(--terra) 0, var(--terra) 1px, transparent 1px, transparent 44px),
+    repeating-linear-gradient(90deg, var(--terra) 0, var(--terra) 1px, transparent 1px, transparent 44px);
+}
+.b-wm { position: absolute; right: -1%; top: 50%; transform: translateY(-50%); opacity: 0.06; pointer-events: none; }
+.b-content { position: relative; z-index: 2; display: flex; align-items: center; width: 100%; padding: 0 5% 0 6%; }
+.b-left { display: flex; flex-direction: column; flex: 1; }
+.b-rule { width: 1px; background: var(--terra); opacity: .2; align-self: stretch; margin: 14% 4%; flex-shrink: 0; }
+.b-right { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; max-width: 32%; }
+.b-quote { font-family: 'Cormorant Garamond',Georgia,serif; font-style: italic; font-weight: 300; text-align: right; line-height: 1.4; font-size: clamp(9px,1.7vw,16px); }
+.b-quote strong { font-weight: 600; font-style: normal; }
+.b-sub  { font-family: 'Montserrat',sans-serif; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; text-align: right; font-size: clamp(4.5px,.62vw,6.5px); }
+.b-tag  { font-family: 'Montserrat',sans-serif; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: clamp(4.5px,.75vw,7.5px); margin-top: 1%; }
+.b-line   { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--terra); opacity: .12; }
+.b-accent { position: absolute; bottom: 0; left: 6%; width: 10%; height: 2px; background: var(--terra); opacity: .5; }
+
+/* ── WORDMARK inline ── */
+.wm { display: inline-flex; align-items: flex-start; line-height: 1; }
+.wm-t { font-family: 'Cormorant Garamond',Georgia,serif; font-weight: 600; line-height: 1; }
+
+/* ── SIG PREVIEW ── */
+.sig-box { display: inline-flex; flex-direction: column; gap: 10px; padding: 28px 36px 36px; }
+
+/* ── CONFIRMATION ── */
+.confirm-box { background: var(--card); border: 1px solid var(--border); padding: 56px 48px; display: flex; flex-direction: column; gap: 20px; }
+
+/* ── COMMENTS ── */
+.comment-item { border-left: 2px solid #E8DDD5; padding: 12px 16px; margin-bottom: 8px; }
+.comment-name { font-size: 7px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--terra-mid); margin-bottom: 6px; }
+.comment-text { font-family: 'Cormorant Garamond',Georgia,serif; font-style: italic; color: var(--muted); font-size: 13px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- ════ NAV ════ -->
+<nav>
+  <div class="nav-logo">
+    <span>ite</span>
+    <svg width="14" height="37" viewBox="0 0 30 76" style="margin:0 1px;display:block;">
+      <line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+      <line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+      <line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+    </svg>
+    <span>re</span>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('vote', this)">Votre avis</button>
+    <button class="nav-tab" onclick="showPage('resultats', this)">Résultats</button>
+    <button class="nav-tab" onclick="showPage('exports', this)">Exports</button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════
+     PAGE 1 : VOTE
+════════════════════════════════════ -->
+<div id="page-vote" class="page active">
+
+  <div id="vote-form">
+
+    <!-- SIGNATURES -->
+    <div class="section-title">Signatures · 4 variantes</div>
+
+    <!-- Fond blanc -->
+    <div class="card" style="margin-bottom:3px;">
+      <div class="variant-row">
+        <div class="variant-preview" style="background:#fff;">
+          <div style="font-size:6.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#A03A15;margin-bottom:4px;">Fond blanc</div>
+          <div class="wm">
+            <span class="wm-t" style="font-size:22px;color:#D4521E;">ite</span>
+            <svg width="14" height="37" viewBox="0 0 30 76" style="margin:0 1px;display:block;">
+              <line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+              <line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+              <line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+            <span class="wm-t" style="font-size:22px;color:#D4521E;">re</span>
+          </div>
+          <div style="font-size:6px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#7A2C10;">Conseil stratégique · Sparring partner CEO</div>
+          <div style="margin-top:8px;padding-top:8px;border-top:1px solid #D4521E22;">
+            <div style="font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;color:#D4521E;font-size:11px;line-height:1.5;">Je dis ce qui dérange, <strong style="font-style:normal;font-weight:600;">si c'est vrai.</strong></div>
+            <div style="font-size:5.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#7A2C10;margin-top:5px;">Hérétique pragmatique · Gouvernance IA · EMEA</div>
+          </div>
+        </div>
+        <div class="variant-criteria" id="crit-blanc"></div>
+      </div>
+    </div>
+
+    <!-- Fond beige -->
+    <div class="card" style="margin-bottom:3px;">
+      <div class="variant-row">
+        <div class="variant-preview" style="background:#F0EBE3;">
+          <div style="font-size:6.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#A03A15;margin-bottom:4px;">Fond beige</div>
+          <div class="wm">
+            <span class="wm-t" style="font-size:22px;color:#D4521E;">ite</span>
+            <svg width="14" height="37" viewBox="0 0 30 76" style="margin:0 1px;display:block;">
+              <line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+              <line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+              <line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+            <span class="wm-t" style="font-size:22px;color:#D4521E;">re</span>
+          </div>
+          <div style="font-size:6px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#7A2C10;">Conseil stratégique · Sparring partner CEO</div>
+          <div style="margin-top:8px;padding-top:8px;border-top:1px solid #D4521E22;">
+            <div style="font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;color:#D4521E;font-size:11px;line-height:1.5;">Je dis ce qui dérange, <strong style="font-style:normal;font-weight:600;">si c'est vrai.</strong></div>
+            <div style="font-size:5.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#7A2C10;margin-top:5px;">Hérétique pragmatique · Gouvernance IA · EMEA</div>
+          </div>
+        </div>
+        <div class="variant-criteria" id="crit-beige"></div>
+      </div>
+    </div>
+
+    <!-- Fond noir mono -->
+    <div class="card" style="margin-bottom:3px;">
+      <div class="variant-row">
+        <div class="variant-preview" style="background:#000;">
+          <div style="font-size:6.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#A03A15;margin-bottom:4px;">Fond noir · mono</div>
+          <div class="wm">
+            <span class="wm-t" style="font-size:22px;color:#D4521E;">ite</span>
+            <svg width="14" height="37" viewBox="0 0 30 76" style="margin:0 1px;display:block;">
+              <line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+              <line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+              <line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+            <span class="wm-t" style="font-size:22px;color:#D4521E;">re</span>
+          </div>
+          <div style="font-size:6px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#A03A15;">Conseil stratégique · Sparring partner CEO</div>
+          <div style="margin-top:8px;padding-top:8px;border-top:1px solid #D4521E33;">
+            <div style="font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;color:#D4521E;font-size:11px;line-height:1.5;">Je dis ce qui dérange, <strong style="font-style:normal;font-weight:600;">si c'est vrai.</strong></div>
+            <div style="font-size:5.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#A03A15;margin-top:5px;">Hérétique pragmatique · Gouvernance IA · EMEA</div>
+          </div>
+        </div>
+        <div class="variant-criteria" id="crit-noir-mono"></div>
+      </div>
+    </div>
+
+    <!-- Fond noir bicolore -->
+    <div class="card" style="margin-bottom:24px;">
+      <div class="variant-row">
+        <div class="variant-preview" style="background:#000;">
+          <div style="font-size:6.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#A03A15;margin-bottom:4px;">Fond noir · bicolore</div>
+          <div class="wm">
+            <span class="wm-t" style="font-size:22px;color:#F0EBE3;">ite</span>
+            <svg width="14" height="37" viewBox="0 0 30 76" style="margin:0 1px;display:block;">
+              <line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+              <line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+              <line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+            <span class="wm-t" style="font-size:22px;color:#F0EBE3;">re</span>
+          </div>
+          <div style="font-size:6px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#A03A15;">Conseil stratégique · Sparring partner CEO</div>
+          <div style="margin-top:8px;padding-top:8px;border-top:1px solid #F0EBE322;">
+            <div style="font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;color:#F0EBE3;font-size:11px;line-height:1.5;">Je dis ce qui dérange, <strong style="font-style:normal;font-weight:600;color:#D4521E;">si c'est vrai.</strong></div>
+            <div style="font-size:5.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#A03A15;margin-top:5px;">Hérétique pragmatique · Gouvernance IA · EMEA</div>
+          </div>
+        </div>
+        <div class="variant-criteria" id="crit-noir-bi"></div>
+      </div>
+    </div>
+
+    <!-- FAVICONS -->
+    <div class="section-title">Favicons · 4 fonds</div>
+    <div class="fav-grid" style="margin-bottom:24px;">
+
+      <!-- Blanc -->
+      <div class="fav-card card">
+        <div style="font-size:7px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#1A1A1A;">Fond blanc</div>
+        <div class="fav-sizes-row">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="fav-box" style="width:64px;height:64px;background:#fff;border:1px solid #eee;">
+              <svg width="27" height="45" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg>
+            </div>
+            <span class="fav-sub" style="color:#999;">64px</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="fav-box" style="width:32px;height:32px;background:#fff;border:1px solid #eee;">
+              <svg width="13" height="22" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg>
+            </div>
+            <span class="fav-sub" style="color:#999;">32px</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="fav-box" style="width:16px;height:16px;background:#fff;border:1px solid #eee;">
+              <svg width="7" height="11" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg>
+            </div>
+            <span class="fav-sub" style="color:#999;">16px</span>
+          </div>
+        </div>
+        <div class="fav-criteria" id="crit-fav-blanc"></div>
+      </div>
+
+      <!-- Beige -->
+      <div class="fav-card card">
+        <div style="font-size:7px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#1A1A1A;">Fond beige</div>
+        <div class="fav-sizes-row">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="fav-box" style="width:64px;height:64px;background:#F0EBE3;">
+              <svg width="27" height="45" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg>
+            </div>
+            <span class="fav-sub" style="color:#999;">64px</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="fav-box" style="width:32px;height:32px;background:#F0EBE3;">
+              <svg width="13" height="22" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg>
+            </div>
+            <span class="fav-sub" style="color:#999;">32px</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="fav-box" style="width:16px;height:16px;background:#F0EBE3;">
+              <svg width="7" height="11" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg>
+            </div>
+            <span class="fav-sub" style="color:#999;">16px</span>
+          </div>
+        </div>
+        <div class="fav-criteria" id="crit-fav-beige"></div>
+      </div>
+
+      <!-- Encre -->
+      <div class="fav-card card">
+        <div style="font-size:7px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#1A1A1A;">Fond encre</div>
+        <div class="fav-sizes-row">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="fav-box" style="width:64px;height:64px;background:#1A1A1A;">
+              <svg width="27" height="45" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg>
+            </div>
+            <span class="fav-sub" style="color:#999;">64px</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="fav-box" style="width:32px;height:32px;background:#1A1A1A;">
+              <svg width="13" height="22" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg>
+            </div>
+            <span class="fav-sub" style="color:#999;">32px</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="fav-box" style="width:16px;height:16px;background:#1A1A1A;">
+              <svg width="7" height="11" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg>
+            </div>
+            <span class="fav-sub" style="color:#999;">16px</span>
+          </div>
+        </div>
+        <div class="fav-criteria" id="crit-fav-encre"></div>
+      </div>
+
+      <!-- Noir -->
+      <div class="fav-card card">
+        <div style="font-size:7px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#1A1A1A;">Fond noir</div>
+        <div class="fav-sizes-row">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="fav-box" style="width:64px;height:64px;background:#000;">
+              <svg width="27" height="45" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg>
+            </div>
+            <span class="fav-sub" style="color:#999;">64px</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="fav-box" style="width:32px;height:32px;background:#000;">
+              <svg width="13" height="22" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg>
+            </div>
+            <span class="fav-sub" style="color:#999;">32px</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="fav-box" style="width:16px;height:16px;background:#000;">
+              <svg width="7" height="11" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg>
+            </div>
+            <span class="fav-sub" style="color:#999;">16px</span>
+          </div>
+        </div>
+        <div class="fav-criteria" id="crit-fav-noir"></div>
+      </div>
+
+    </div>
+
+    <!-- FORMULAIRE -->
+    <div class="form-section">
+      <div class="section-title" style="margin-bottom:10px;">Votre identité</div>
+      <input id="inp-name" placeholder="Prénom (optionnel)" />
+      <textarea id="inp-comment" rows="2" placeholder="Un commentaire ? (optionnel)"></textarea>
+      <div>
+        <button class="btn submit" id="btn-submit" onclick="submitVote()">Envoyer mon vote</button>
+      </div>
+    </div>
+
+  </div><!-- /vote-form -->
+
+  <!-- CONFIRMATION -->
+  <div id="vote-confirm" style="display:none;" class="confirm-box">
+    <div class="wm">
+      <span class="wm-t" style="font-size:26px;color:#D4521E;">ite</span>
+      <svg width="17" height="44" viewBox="0 0 30 76" style="margin:0 1px;display:block;">
+        <line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+        <line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+        <line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <span class="wm-t" style="font-size:26px;color:#D4521E;">re</span>
+    </div>
+    <div style="font-size:7px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#A03A15;">Vote enregistré</div>
+    <div style="font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:18px;color:#888;line-height:1.5;">Merci.</div>
+    <button class="btn primary" onclick="showPage('resultats', document.querySelectorAll('.nav-tab')[1])" style="align-self:flex-start;margin-top:8px;">Voir les résultats →</button>
+  </div>
+
+</div><!-- /page-vote -->
+
+
+<!-- ════════════════════════════════════
+     PAGE 2 : RÉSULTATS
+════════════════════════════════════ -->
+<div id="page-resultats" class="page">
+  <div id="results-content">
+    <div style="color:var(--muted);font-size:11px;padding:40px 0;">Chargement…</div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     PAGE 3 : EXPORTS
+════════════════════════════════════ -->
+<div id="page-exports" class="page">
+
+  <div class="section-title">Favicons · rendu canvas · formats exacts</div>
+  <div class="export-grid" style="margin-bottom:48px;">
+    <div class="export-card">
+      <div class="export-label">Fond blanc</div>
+      <div class="btn-row">
+        <button class="btn primary" onclick="dlFav('#ffffff','blanc',128)">128px</button>
+        <button class="btn" onclick="dlFav('#ffffff','blanc',64)">64px</button>
+        <button class="btn" onclick="dlFav('#ffffff','blanc',32)">32px</button>
+        <button class="btn" onclick="dlFav('#ffffff','blanc',16)">16px</button>
+      </div>
+    </div>
+    <div class="export-card">
+      <div class="export-label">Fond beige</div>
+      <div class="btn-row">
+        <button class="btn primary" onclick="dlFav('#F0EBE3','beige',128)">128px</button>
+        <button class="btn" onclick="dlFav('#F0EBE3','beige',64)">64px</button>
+        <button class="btn" onclick="dlFav('#F0EBE3','beige',32)">32px</button>
+        <button class="btn" onclick="dlFav('#F0EBE3','beige',16)">16px</button>
+      </div>
+    </div>
+    <div class="export-card">
+      <div class="export-label">Fond encre #1A1A1A</div>
+      <div class="btn-row">
+        <button class="btn primary" onclick="dlFav('#1A1A1A','encre',128)">128px</button>
+        <button class="btn" onclick="dlFav('#1A1A1A','encre',64)">64px</button>
+        <button class="btn" onclick="dlFav('#1A1A1A','encre',32)">32px</button>
+        <button class="btn" onclick="dlFav('#1A1A1A','encre',16)">16px</button>
+      </div>
+    </div>
+    <div class="export-card">
+      <div class="export-label">Fond noir #000</div>
+      <div class="btn-row">
+        <button class="btn primary" onclick="dlFav('#000000','noir',128)">128px</button>
+        <button class="btn" onclick="dlFav('#000000','noir',64)">64px</button>
+        <button class="btn" onclick="dlFav('#000000','noir',32)">32px</button>
+        <button class="btn" onclick="dlFav('#000000','noir',16)">16px</button>
+      </div>
+    </div>
+    <div class="export-card">
+      <div class="export-label">Fond transparent</div>
+      <div class="btn-row">
+        <button class="btn primary" onclick="dlFav(null,'transparent',128)">128px</button>
+        <button class="btn" onclick="dlFav(null,'transparent',64)">64px</button>
+        <button class="btn" onclick="dlFav(null,'transparent',32)">32px</button>
+        <button class="btn" onclick="dlFav(null,'transparent',16)">16px</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Signatures · PNG 4×</div>
+  <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:48px;">
+    <div style="display:flex;gap:3px;flex-wrap:wrap;">
+      <div id="exp-sig-blanc" class="sig-box" style="background:#fff;">
+        <div class="wm"><span class="wm-t" style="font-size:28px;color:#D4521E;">ite</span><svg width="18" height="46" viewBox="0 0 30 76" style="margin:0 1px;display:block;"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg><span class="wm-t" style="font-size:28px;color:#D4521E;">re</span></div>
+        <div style="font-size:7px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#7A2C10;">Conseil stratégique · Sparring partner CEO / CODIR</div>
+      </div>
+      <div id="exp-sig-beige" class="sig-box" style="background:#F0EBE3;">
+        <div class="wm"><span class="wm-t" style="font-size:28px;color:#D4521E;">ite</span><svg width="18" height="46" viewBox="0 0 30 76" style="margin:0 1px;display:block;"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg><span class="wm-t" style="font-size:28px;color:#D4521E;">re</span></div>
+        <div style="font-size:7px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#7A2C10;">Conseil stratégique · Sparring partner CEO / CODIR</div>
+      </div>
+      <div id="exp-sig-noir" class="sig-box" style="background:#000;">
+        <div class="wm"><span class="wm-t" style="font-size:28px;color:#D4521E;">ite</span><svg width="18" height="46" viewBox="0 0 30 76" style="margin:0 1px;display:block;"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg><span class="wm-t" style="font-size:28px;color:#D4521E;">re</span></div>
+        <div style="font-size:7px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#A03A15;">Conseil stratégique · Sparring partner CEO / CODIR</div>
+      </div>
+      <div id="exp-sig-noir-bi" class="sig-box" style="background:#000;">
+        <div class="wm"><span class="wm-t" style="font-size:28px;color:#F0EBE3;">ite</span><svg width="18" height="46" viewBox="0 0 30 76" style="margin:0 1px;display:block;"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg><span class="wm-t" style="font-size:28px;color:#F0EBE3;">re</span></div>
+        <div style="font-size:7px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#A03A15;">Conseil stratégique · Sparring partner CEO / CODIR</div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" onclick="dlSig('exp-sig-blanc','iteyre-sig-blanc')">Signature blanc</button>
+      <button class="btn" onclick="dlSig('exp-sig-beige','iteyre-sig-beige')">Signature beige</button>
+      <button class="btn" onclick="dlSig('exp-sig-noir','iteyre-sig-noir-mono')">Signature noir mono</button>
+      <button class="btn" onclick="dlSig('exp-sig-noir-bi','iteyre-sig-noir-bi')">Signature noir bicolore</button>
+    </div>
+  </div>
+
+  <div class="section-title">Bannières LinkedIn · 1584 × 396px</div>
+
+  <!-- blanc -->
+  <div class="banner-wrap"><div class="banner-inner" id="exp-ban-blanc" style="background:#fff;">
+    <div class="b-grid"></div><div class="b-wm"><svg width="200" height="320" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="3" stroke-linecap="round"/></svg></div>
+    <div class="b-content"><div class="b-left"><div class="wm" style="align-items:flex-start;"><span class="wm-t" style="color:#D4521E;font-size:clamp(22px,4.6vw,44px);">ite</span><svg style="width:clamp(12px,1.9vw,20px);height:clamp(38px,7.5vw,72px);margin:0 1px;display:block;" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg><span class="wm-t" style="color:#D4521E;font-size:clamp(22px,4.6vw,44px);">re</span></div><div class="b-tag" style="color:#7A2C10;">Conseil stratégique · Sparring partner CEO / CODIR</div></div><div class="b-rule"></div><div class="b-right"><div class="b-quote" style="color:#D4521E;">Je dis ce qui dérange,<br><strong>si c'est vrai.</strong></div><div class="b-sub" style="color:#A03A15;">Hérétique pragmatique · Gouvernance IA · EMEA</div></div></div>
+    <div class="b-line"></div><div class="b-accent"></div>
+  </div></div>
+
+  <!-- beige -->
+  <div class="banner-wrap"><div class="banner-inner" id="exp-ban-beige" style="background:#F0EBE3;">
+    <div class="b-grid"></div><div class="b-wm"><svg width="200" height="320" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="3" stroke-linecap="round"/></svg></div>
+    <div class="b-content"><div class="b-left"><div class="wm" style="align-items:flex-start;"><span class="wm-t" style="color:#D4521E;font-size:clamp(22px,4.6vw,44px);">ite</span><svg style="width:clamp(12px,1.9vw,20px);height:clamp(38px,7.5vw,72px);margin:0 1px;display:block;" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg><span class="wm-t" style="color:#D4521E;font-size:clamp(22px,4.6vw,44px);">re</span></div><div class="b-tag" style="color:#7A2C10;">Conseil stratégique · Sparring partner CEO / CODIR</div></div><div class="b-rule"></div><div class="b-right"><div class="b-quote" style="color:#D4521E;">Je dis ce qui dérange,<br><strong>si c'est vrai.</strong></div><div class="b-sub" style="color:#A03A15;">Hérétique pragmatique · Gouvernance IA · EMEA</div></div></div>
+    <div class="b-line"></div><div class="b-accent"></div>
+  </div></div>
+
+  <!-- noir mono -->
+  <div class="banner-wrap"><div class="banner-inner" id="exp-ban-noir-mono" style="background:#000;">
+    <div class="b-wm" style="opacity:.07;"><svg width="200" height="320" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="3" stroke-linecap="round"/></svg></div>
+    <div class="b-content"><div class="b-left"><div class="wm" style="align-items:flex-start;"><span class="wm-t" style="color:#D4521E;font-size:clamp(22px,4.6vw,44px);">ite</span><svg style="width:clamp(12px,1.9vw,20px);height:clamp(38px,7.5vw,72px);margin:0 1px;display:block;" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg><span class="wm-t" style="color:#D4521E;font-size:clamp(22px,4.6vw,44px);">re</span></div><div class="b-tag" style="color:#A03A15;">Conseil stratégique · Sparring partner CEO / CODIR</div></div><div class="b-rule"></div><div class="b-right"><div class="b-quote" style="color:#D4521E;">Je dis ce qui dérange,<br><strong>si c'est vrai.</strong></div><div class="b-sub" style="color:#A03A15;">Hérétique pragmatique · Gouvernance IA · EMEA</div></div></div>
+    <div class="b-line"></div><div class="b-accent"></div>
+  </div></div>
+
+  <!-- noir bi -->
+  <div class="banner-wrap"><div class="banner-inner" id="exp-ban-noir-bi" style="background:#000;">
+    <div class="b-wm" style="opacity:.07;"><svg width="200" height="320" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="3" stroke-linecap="round"/></svg></div>
+    <div class="b-content"><div class="b-left"><div class="wm" style="align-items:flex-start;"><span class="wm-t" style="color:#F0EBE3;font-size:clamp(22px,4.6vw,44px);">ite</span><svg style="width:clamp(12px,1.9vw,20px);height:clamp(38px,7.5vw,72px);margin:0 1px;display:block;" viewBox="0 0 30 76"><line x1="15" y1="2" x2="15" y2="28" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="3" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/><line x1="15" y1="28" x2="27" y2="66" stroke="#D4521E" stroke-width="5" stroke-linecap="round"/></svg><span class="wm-t" style="color:#F0EBE3;font-size:clamp(22px,4.6vw,44px);">re</span></div><div class="b-tag" style="color:#A03A15;">Conseil stratégique · Sparring partner CEO / CODIR</div></div><div class="b-rule"></div><div class="b-right"><div class="b-quote" style="color:#F0EBE3;">Je dis ce qui dérange,<br><strong style="color:#D4521E;">si c'est vrai.</strong></div><div class="b-sub" style="color:#A03A15;">Hérétique pragmatique · Gouvernance IA · EMEA</div></div></div>
+    <div class="b-line"></div><div class="b-accent"></div>
+  </div></div>
+
+  <div class="btn-row" style="margin-top:4px;">
+    <button class="btn primary" onclick="dlBanner('exp-ban-blanc','iteyre-banniere-blanc')">Bannière blanc</button>
+    <button class="btn" onclick="dlBanner('exp-ban-beige','iteyre-banniere-beige')">Bannière beige</button>
+    <button class="btn" onclick="dlBanner('exp-ban-noir-mono','iteyre-banniere-noir-mono')">Bannière noir mono</button>
+    <button class="btn" onclick="dlBanner('exp-ban-noir-bi','iteyre-banniere-noir-bi')">Bannière noir bicolore</button>
+  </div>
+
+</div><!-- /page-exports -->
+
+
+<script>
+// ════════════════════════════
+// STORAGE KEY
+// ════════════════════════════
+const STORAGE_KEY = 'iteyre-votes-v3';
+
+// ════════════════════════════
+// NAVIGATION
+// ════════════════════════════
+function showPage(name, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  if (btn) btn.classList.add('active');
+  if (name === 'resultats') renderResults();
+}
+
+// ════════════════════════════
+// CRITÈRES
+// ════════════════════════════
+const CRITERIA = [
+  { id: 'impact',     label: 'Impact',     desc: 'Ça marque, ça reste' },
+  { id: 'lisibilite', label: 'Lisibilité', desc: 'Claire à toutes tailles' },
+  { id: 'premium',    label: 'Premium',    desc: 'Inspire confiance' },
+];
+
+const ALL_ITEMS = [
+  'blanc','beige','noir-mono','noir-bi',
+  'fav-blanc','fav-beige','fav-encre','fav-noir'
+];
+
+// ratings en mémoire
+const ratings = {};
+ALL_ITEMS.forEach(id => { ratings[id] = { impact:0, lisibilite:0, premium:0 }; });
+
+function buildCritRow(containerId, itemId) {
+  const el = document.getElementById('crit-' + containerId);
+  if (!el) return;
+  CRITERIA.forEach(c => {
+    const row = document.createElement('div');
+    row.className = 'crit-row';
+    const left = document.createElement('div');
+    left.innerHTML = `<div class="crit-label">${c.label}</div><div class="crit-desc">${c.desc}</div>`;
+    const stars = document.createElement('div');
+    stars.className = 'stars';
+    stars.id = `stars-${itemId}-${c.id}`;
+    for (let n = 1; n <= 5; n++) {
+      const btn = document.createElement('button');
+      btn.className = 'star';
+      btn.textContent = '★';
+      btn.dataset.n = n;
+      btn.onclick = () => setRating(itemId, c.id, n);
+      stars.appendChild(btn);
+    }
+    row.appendChild(left);
+    row.appendChild(stars);
+    el.appendChild(row);
+  });
+}
+
+function setRating(itemId, critId, val) {
+  ratings[itemId][critId] = val;
+  const stars = document.getElementById(`stars-${itemId}-${critId}`);
+  if (!stars) return;
+  stars.querySelectorAll('.star').forEach(s => {
+    s.classList.toggle('active', parseInt(s.dataset.n) <= val);
+  });
+}
+
+// init toutes les lignes
+buildCritRow('blanc',    'blanc');
+buildCritRow('beige',    'beige');
+buildCritRow('noir-mono','noir-mono');
+buildCritRow('noir-bi',  'noir-bi');
+buildCritRow('fav-blanc','fav-blanc');
+buildCritRow('fav-beige','fav-beige');
+buildCritRow('fav-encre','fav-encre');
+buildCritRow('fav-noir', 'fav-noir');
+
+// ════════════════════════════
+// VOTE SUBMIT
+// ════════════════════════════
+async function submitVote() {
+  const name    = document.getElementById('inp-name').value.trim() || 'Anonyme';
+  const comment = document.getElementById('inp-comment').value.trim();
+  const btn     = document.getElementById('btn-submit');
+  btn.disabled = true;
+  btn.textContent = 'Envoi…';
+
+  const entry = { name, comment, ratings: JSON.parse(JSON.stringify(ratings)), ts: Date.now() };
+
+  try {
+    let existing = [];
+    try {
+      const r = await window.storage.get(STORAGE_KEY, true);
+      if (r?.value) existing = JSON.parse(r.value);
+    } catch(_) {}
+    existing.push(entry);
+    await window.storage.set(STORAGE_KEY, JSON.stringify(existing), true);
+  } catch(_) {}
+
+  document.getElementById('vote-form').style.display    = 'none';
+  document.getElementById('vote-confirm').style.display = 'flex';
+}
+
+// ════════════════════════════
+// RÉSULTATS
+// ════════════════════════════
+const ITEM_LABELS = {
+  'blanc':     'Signature · Fond blanc',
+  'beige':     'Signature · Fond beige',
+  'noir-mono': 'Signature · Noir mono',
+  'noir-bi':   'Signature · Noir bicolore',
+  'fav-blanc': 'Favicon · Blanc',
+  'fav-beige': 'Favicon · Beige',
+  'fav-encre': 'Favicon · Encre',
+  'fav-noir':  'Favicon · Noir',
+};
+
+async function renderResults() {
+  const el = document.getElementById('results-content');
+  let responses = [];
+  try {
+    const r = await window.storage.get(STORAGE_KEY, true);
+    if (r?.value) responses = JSON.parse(r.value);
+  } catch(_) {}
+
+  if (!responses.length) {
+    el.innerHTML = '<div style="color:var(--muted);font-size:11px;padding:40px 0;">Aucun vote pour l\'instant.</div>';
+    return;
+  }
+
+  const avg = (itemId, critId) => {
+    const vals = responses.map(r => r.ratings?.[itemId]?.[critId] || 0).filter(v => v > 0);
+    return vals.length ? (vals.reduce((a,b)=>a+b,0)/vals.length) : 0;
+  };
+  const total = (itemId) => {
+    const s = CRITERIA.reduce((sum,c) => sum + avg(itemId,c.id), 0);
+    return s / CRITERIA.length;
+  };
+
+  const sorted = [...ALL_ITEMS].sort((a,b) => total(b) - total(a));
+  const best = sorted[0];
+
+  let html = `<div class="section-title">${responses.length} vote${responses.length>1?'s':''} · Classement général</div>`;
+  html += `<div class="card"><table class="results-table"><thead><tr><th>Variante</th>${CRITERIA.map(c=>`<th>${c.label}</th>`).join('')}<th>Score global</th></tr></thead><tbody>`;
+
+  sorted.forEach(id => {
+    const t = total(id);
+    const isBest = id === best && t > 0;
+    html += `<tr>
+      <td style="font-size:11px;font-weight:600;color:${isBest?'var(--terra)':'var(--ink)'};">${ITEM_LABELS[id]}${isBest?'<div class="badge-best">meilleur score</div>':''}</td>
+      ${CRITERIA.map(c => {
+        const v = avg(id,c.id);
+        return `<td><div class="score-num">${v>0?v.toFixed(1):'—'}</div><div class="score-bar"><div class="score-fill" style="width:${(v/5)*100}%"></div></div></td>`;
+      }).join('')}
+      <td><div class="score-num ${isBest?'score-best':''}">${t>0?t.toFixed(1):'—'}</div></td>
+    </tr>`;
+  });
+
+  html += `</tbody></table></div>`;
+
+  const withComments = responses.filter(r => r.comment);
+  if (withComments.length) {
+    html += `<div class="section-title" style="margin-top:32px;">Commentaires (${withComments.length})</div>`;
+    withComments.forEach(r => {
+      html += `<div class="comment-item"><div class="comment-name">${r.name}</div><div class="comment-text">${r.comment}</div></div>`;
+    });
+  }
+
+  el.innerHTML = html;
+}
+
+// ════════════════════════════
+// EXPORTS FAVICON (canvas)
+// ════════════════════════════
+function drawFav(canvas, size, bg) {
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  if (bg) { ctx.fillStyle = bg; ctx.fillRect(0,0,size,size); }
+  const mw = size * 0.50, mh = mw * (76/30);
+  const ox = (size-mw)/2, oy = (size-mh)/2;
+  const x = vx => ox + vx*(mw/30);
+  const y = vy => oy + vy*(mh/76);
+  const lw = Math.max(1.2, size*0.10);
+  ctx.strokeStyle = '#D4521E'; ctx.lineWidth = lw; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(x(15),y(2));  ctx.lineTo(x(15),y(28)); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x(15),y(28)); ctx.lineTo(x(3), y(66)); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x(15),y(28)); ctx.lineTo(x(27),y(66)); ctx.stroke();
+}
+function dlFav(bg, name, size) {
+  const c = document.createElement('canvas');
+  drawFav(c, size, bg);
+  const a = document.createElement('a');
+  a.download = `iteyre-favicon-${name}-${size}px.png`;
+  a.href = c.toDataURL('image/png'); a.click();
+}
+
+// ════════════════════════════
+// EXPORTS SIGNATURE
+// ════════════════════════════
+async function loadH2C() {
+  if (window.html2canvas) return;
+  await new Promise((res,rej) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+    s.onload = res; s.onerror = rej; document.head.appendChild(s);
+  });
+}
+async function dlSig(id, filename) {
+  await loadH2C();
+  const el = document.getElementById(id);
+  const c  = await html2canvas(el, { scale:4, useCORS:true, backgroundColor:null, logging:false });
+  const a  = document.createElement('a');
+  a.download = filename + '.png'; a.href = c.toDataURL('image/png'); a.click();
+}
+async function dlBanner(id, filename) {
+  await loadH2C();
+  const el = document.getElementById(id);
+  const scale = Math.ceil(1584/el.offsetWidth);
+  const c  = await html2canvas(el, { scale, useCORS:true, backgroundColor:null, logging:false });
+  const out = document.createElement('canvas');
+  out.width = 1584; out.height = 396;
+  out.getContext('2d').drawImage(c, 0, 0, 1584, 396);
+  const a = document.createElement('a');
+  a.download = filename + '-1584x396.png'; a.href = out.toDataURL('image/png'); a.click();
+}
+</script>
+</body>
+</html>
